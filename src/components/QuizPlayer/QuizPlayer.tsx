@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
-import { Movie } from '../../models/movie.model';
 
 interface QuizPlayerProps {
-  activeQuestion: Movie | null;
+  activeQuestionPath: string;
   shouldStop?: boolean;
 }
 
@@ -25,7 +24,7 @@ export function QuizPlayer(props: QuizPlayerProps) {
         showJumpControls={false}
         customControlsSection={[RHAP_UI.VOLUME]}
         autoPlayAfterSrcChange={false}
-        src={props.activeQuestion?.urlPath}
+        src={props.activeQuestionPath}
       />
     </div>
   );
