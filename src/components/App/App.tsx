@@ -49,7 +49,7 @@ function App() {
       <HorizontalStepper activeStepIndex={activeTab?.sequenceNo} stepLabels={TAB_LABELS}/>
       {isGameEnded ?
         <Congrats resultsData={gameData} score={score} onResetClick={reset}/> :
-        <Game onScoreChange={changeScore} onGameStatusChange={endGame}
+        <Game activeTab={activeTab} onScoreChange={changeScore} onGameStatusChange={endGame}
               onActiveTabChange={changeActiveTab}/>}
     </Container>
   );
