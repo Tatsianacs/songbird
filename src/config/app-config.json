@@ -1,3 +1,7 @@
 {
- "theMovieDbApiKey": "4a7a9d71bc65b3d174fd760c355636b3"
+ "theMovieDbApiKey": "4a7a9d71bc65b3d174fd760c355636b3",
+ "giphyApiKey": "8p2OUG4Dy8vw4OkOjepnJZ7McvN4FIYH",
+ "numberOfAnswers": 6,
+ "maxScorePerQuestion": 5,
+ "giphyApiPath": "https://api.giphy.com/v1/gifs/random"
 }
