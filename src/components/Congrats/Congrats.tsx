@@ -37,10 +37,10 @@ const useStyles = makeStyles(() =>
     }
   }),
 );
+const MAX_SCORE = appConfig.numberOfAnswers * appConfig.maxScorePerQuestion;
 
 export function Congrats(props: CongratsProps) {
   const classes = useStyles();
-  const MAX_SCORE = appConfig.numberOfAnswers * appConfig.maxScorePerQuestion;
   const [gifPath, setGifPath] = useState('');
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export function Congrats(props: CongratsProps) {
         (result: any) => {
           setGifPath(result.data.fixed_width_downsampled_url);
         },
-        (error) => {
+        () => {
           setGifPath('');
         }
       );

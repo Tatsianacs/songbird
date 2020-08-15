@@ -26,7 +26,7 @@ function App() {
     <Container maxWidth="md">
       <InfoPanel score={score}/>
       <HorizontalStepper activeStepIndex={activeTab?.sequenceNo} stepLabels={TAB_LABELS}/>
-      {!isGameEnded ?
+      {isGameEnded ?
         <Congrats resultsData={gameData} score={score} onResetClick={reset}/> :
         <Game/>}
     </Container>
