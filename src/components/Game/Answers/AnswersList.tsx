@@ -8,15 +8,7 @@ import { Radio, RadioProps, withStyles } from '@material-ui/core';
 import { Howl } from 'howler';
 import { green } from '@material-ui/core/colors';
 import { Movie } from '../../../models/movie.model';
-
-export const GreenRadio = withStyles({
-  root: {
-    '&$checked': {
-      color: green[600],
-    },
-  },
-  checked: {},
-})((props: RadioProps) => <Radio color="default" {...props} />);
+import appConfig from '../../../config/app-config.json';
 
 interface AnswerListProps {
   answers: Movie[];
@@ -24,6 +16,23 @@ interface AnswerListProps {
   onCorrectAnswerChange: (score: number) => void;
   onSelectedAnswer: (id: string) => void;
 }
+
+const correctSound = new Howl({
+  src: ['sounds/correct.mp3']
+});
+
+const wrongSound = new Howl({
+  src: ['sounds/wrong.mp3']
+});
+
+const GreenRadio = withStyles({
+  root: {
+    '&$checked': {
+      color: green[600],
+    },
+  },
+  checked: {},
+})((props: RadioProps) => <Radio color="default" {...props} />);
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,37 +47,37 @@ export default function AnswersList(props: AnswerListProps) {
   const classes = useStyles();
   const [reviewedAnswerIds, setAnswers] = useState<string[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<Movie | null>(null);
-  const [isScoreUpdated, setScoreState] = useState<boolean>(false);
-  const sound1 = new Howl({
-    src: ['sounds/correct.mp3']
-  });
-  const sound2 = new Howl({
-    src: ['sounds/wrong.mp3']
-  });
+  const [isScoreUpdated, setScoreUpdatedState] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!props.answers?.length) {
-      setScoreState(false);
-      setSelectedAnswer(null);
-      setAnswers([]);
-    }
+    setScoreUpdatedState(false);
+    setSelectedAnswer(null);
+    setAnswers([]);
+    // // todo why??
+    // if (!props.answers?.length) {
+    //   setScoreUpdatedState(false);
+    //   setSelectedAnswer(null);
+    //   setAnswers([]);
+    // }
   }, [props.answers]);
 
-  const handleClick = (selectedAnswerId: string) => () => {
-
-    if (selectedAnswerId === props.requiredAnswer?.id) {
-      sound1.play();
+  const playSound = (answerId: string) => {
+    if (answerId !== props.requiredAnswer?.id) {
+      wrongSound.play();
     } else {
-      sound2.play();
+      correctSound.play();
     }
+  };
 
-
-    if (!isScoreUpdated && selectedAnswerId === props.requiredAnswer?.id) {
-      setScoreState(true);
-      const score = 5 - reviewedAnswerIds.length;
+  const updateScore = (answerId: string) => {
+    if (!isScoreUpdated && answerId === props.requiredAnswer?.id) {
+      const score = appConfig.maxScorePerQuestion - reviewedAnswerIds.length;
+      setScoreUpdatedState(true);
       props.onCorrectAnswerChange(score);
     }
+  };
 
+  const updateReviewedAnswers = (selectedAnswerId: string) => {
     if (selectedAnswer?.id !== selectedAnswerId) {
       const requiredAnswer = props.answers?.find(el => el.id === selectedAnswerId);
       if (requiredAnswer) {
@@ -82,9 +91,15 @@ export default function AnswersList(props: AnswerListProps) {
     }
   };
 
+  const handleClick = (selectedAnswerId: string) => () => {
+    playSound(selectedAnswerId);
+    updateScore(selectedAnswerId);
+    updateReviewedAnswers(selectedAnswerId);
+  };
+
   return (
     <List className={classes.root}>
-      {props.answers.map((value) => {
+      {props.answers.map((value: Movie) => {
         const labelId = value.themoviedbTitle;
 
         return (
