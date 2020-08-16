@@ -6,9 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Divider } from '@material-ui/core';
 import './Description.scss';
-import { Icon } from '@iconify/react';
-import playCircleOutlined from '@iconify/icons-ant-design/play-circle-outlined';
-import pauseCircleOutlined from '@iconify/icons-ant-design/pause-circle-outlined';
 import { Movie } from '../../../../models/movie.model';
 import { QuizPlayer } from '../../../QuizPlayer/QuizPlayer';
 
@@ -61,9 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Description(props: DescriptionProps) {
   const classes = useStyles();
-
-  const playIcon = <Icon icon={playCircleOutlined}/>;
-  const pauseIcon = <Icon icon={pauseCircleOutlined}/>;
 
   return (
     <div className={classes.root}>
