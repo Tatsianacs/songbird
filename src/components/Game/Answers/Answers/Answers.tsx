@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Skeleton from '@material-ui/lab/Skeleton';
-import AnswersList from '../List';
+import AnswersList from '../AnswersList/AnswersList';
 import Description from '../Description/Description';
 import { Movie } from '../../../../models/movie.model';
 
@@ -20,17 +20,17 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1
     },
     skeleton: {
-      width: 300,
-      height: '50px'
+      width: 200,
+      height: 350
     },
-    paper: {
+    description: {
       padding: theme.spacing(2),
       textAlign: 'center',
       color: theme.palette.text.secondary,
       height: '100%',
       boxSizing: 'border-box'
     },
-    paper2: {
+    list: {
       padding: theme.spacing(2),
       textAlign: 'center',
       color: theme.palette.text.secondary,
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
       boxSizing: 'border-box',
       maxWidth: 250
     },
-    description: {
+    hint: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -55,11 +55,11 @@ export default function Answers(props: AnswersProps) {
     setSelectedAnswer(null);
   }, [props.requiredAnswer]);
 
-  const test = (score: number) => {
+  const emitCorrectAnswer = (score: number) => {
     props.onCorrectAnswerChange(score);
   };
 
-  const test2 = (id: string) => {
+  const changeSelectedAnswer = (id: string) => {
     const shouldStopPlayer = (id === props.requiredAnswer?.id);
     props.onAnswerClick(shouldStopPlayer);
     const answer = props.answers?.find(el => el.id === id);
@@ -71,18 +71,18 @@ export default function Answers(props: AnswersProps) {
     <div className={classes.root}>
       <Grid container spacing={3} alignItems='stretch' justify='center'>
         <Grid item>
-          <Paper className={classes.paper2}>
-            {!props.answers?.length ? <Skeleton variant="rect" height={300} width={200}/> :
-              <AnswersList answers={props.answers} requiredAnswer={props.requiredAnswer} onCorrectAnswerChange={test}
-                           onSelectedAnswer={test2}/>}
+          <Paper className={classes.list}>
+            {!props.answers?.length ?
+              <Skeleton variant="rect" className={classes.skeleton}/> :
+              <AnswersList answers={props.answers} requiredAnswer={props.requiredAnswer} onCorrectAnswerChange={emitCorrectAnswer}
+                           onSelectedAnswer={changeSelectedAnswer}/>}
           </Paper>
         </Grid>
         <Grid item xs>
-          <Paper className={classes.paper}>
+          <Paper className={classes.description}>
             {selectedAnswer ?
-              <Description option={selectedAnswer}/>
-              :
-              <div className={classes.description}>Прослушайте трейлер и выберите фильм, которому он принадлежит</div>
+              <Description option={selectedAnswer}/> :
+              <div className={classes.hint}>Прослушайте трейлер и выберите фильм, которому он принадлежит</div>
             }
           </Paper>
         </Grid>

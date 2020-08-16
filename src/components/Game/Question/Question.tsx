@@ -8,10 +8,30 @@ import stubImage from '../../../images/stub.png';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {},
-    stub: {
+    root: {
+      padding: '16px',
+      display: 'flex',
+      alignItems: 'flex-start',
+      marginBottom: '16px',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      backgroundImage: 'linear-gradient(to top, #dfe9f3 0%, white 100%)',
+      borderRadius: '2px',
+      boxShadow: '0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)'
+    },
+    image: {
       width: '150px',
-      height: 'auto'
+      height: 'auto',
+      marginRight: '16px',
+      border: '1px solid #ddd',
+      borderRadius: '4px',
+      padding: '4px'
+    },
+    player: {
+      flexGrow: 1
+    },
+    skeleton: {
+      marginTop: '28px'
     }
   }),
 );
@@ -27,18 +47,19 @@ export function Question(props: QuestionProps) {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.root}>
       <div>
         <img src={props.correctAnswerExists ? props.activeQuestion?.themoviedbImagePath : stubImage}
              alt="stub"
-             className={classes.stub}/></div>
-      <div className='quiz__player'>
+             className={classes.image}/>
+      </div>
+      <div className={classes.player}>
         {props.correctAnswerExists ? <h3>{props.activeQuestion?.themoviedbTitle}</h3> :
           <h3 className='quiz__name'>Угадай *** по трейлеру </h3>}
         <Divider/>
         {props.activeQuestion && props.activeQuestion.urlPath ?
           <QuizPlayer shouldStop={props.shouldStop} activeQuestionPath={props.activeQuestion.urlPath}/> :
-          <div className='quiz__skeleton'><Skeleton variant="text"/></div>}
+          <div className={classes.skeleton}><Skeleton variant="text"/></div>}
       </div>
     </div>
   );

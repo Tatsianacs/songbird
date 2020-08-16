@@ -11,7 +11,7 @@ import { QuizTab } from '../../models/quiz-tab.model';
 function App() {
 
   const TAB_LABELS = TABS.map(tab => tab.displayName);
-  const [activeTab, setActiveTab] = useState(TABS[0]);
+  const [activeTab, setActiveTab] = useState<QuizTab | null>(TABS[0]);
   const [isGameEnded, setGameEndedStatus] = useState(false);
   const [score, setScore] = useState(0);
   const [gameData, setGameData] = useState<UserGameData[]>([]);
@@ -24,9 +24,10 @@ function App() {
   };
 
   const changeScore = (score: number, answer: string) => {
+    setScore(prevState => score + prevState);
     const requiredData = [...gameData];
     const newData = {
-      question: activeTab?.displayName,
+      question: activeTab?.displayName || 'Unknown',
       answer: answer,
       score: score
     };
@@ -36,7 +37,16 @@ function App() {
 
   const endGame = () => {
     setGameEndedStatus(true);
-    setScore(score);
+  };
+
+  const clickNext = () => {
+    if (activeTab?.sequenceNo === (TABS.length - 1)) {
+      setActiveTab(null);
+      endGame();
+    } else {
+      const requiredIndex = activeTab?.sequenceNo || 0;
+      setActiveTab(TABS[requiredIndex + 1]);
+    }
   };
 
   const changeActiveTab = (tab: QuizTab) => {
@@ -49,7 +59,7 @@ function App() {
       <HorizontalStepper activeStepIndex={activeTab?.sequenceNo} stepLabels={TAB_LABELS}/>
       {isGameEnded ?
         <Congrats resultsData={gameData} score={score} onResetClick={reset}/> :
-        <Game activeTab={activeTab} onScoreChange={changeScore} onGameStatusChange={endGame}
+        <Game activeTab={activeTab} onScoreChange={changeScore} onNextButtonClick={clickNext}
               onActiveTabChange={changeActiveTab}/>}
     </Container>
   );

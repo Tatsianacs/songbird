@@ -14,8 +14,8 @@ const useStyles = makeStyles(() =>
       alignItems: 'center'
     },
     score: {
-      width: '80px',
-      height: '80px'
+      width: '70px',
+      height: '70px'
     },
     text: {
       marginRight: '16px'

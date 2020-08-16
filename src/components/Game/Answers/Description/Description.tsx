@@ -5,12 +5,12 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Divider } from '@material-ui/core';
-import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
-import './Description.css';
-import { Icon, InlineIcon } from '@iconify/react';
+import './Description.scss';
+import { Icon } from '@iconify/react';
 import playCircleOutlined from '@iconify/icons-ant-design/play-circle-outlined';
 import pauseCircleOutlined from '@iconify/icons-ant-design/pause-circle-outlined';
 import { Movie } from '../../../../models/movie.model';
+import { QuizPlayer } from '../../../QuizPlayer/QuizPlayer';
 
 interface DescriptionProps {
   option: Movie
@@ -62,8 +62,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Description(props: DescriptionProps) {
   const classes = useStyles();
 
-  const test = <Icon icon={playCircleOutlined}/>;
-  const test2 = <Icon icon={pauseCircleOutlined}/>;
+  const playIcon = <Icon icon={playCircleOutlined}/>;
+  const pauseIcon = <Icon icon={pauseCircleOutlined}/>;
 
   return (
     <div className={classes.root}>
@@ -92,35 +92,7 @@ export default function Description(props: DescriptionProps) {
                             className={classes.description}>
                   {props.option.themoviedbOverview}
                 </Typography>
-                {/*<audio controls>*/}
-                {/*  <source src={props.option.urlPath}/>*/}
-                {/*</audio>*/}
-                <AudioPlayer
-                  className={classes.audioPlayer}
-
-                  customProgressBarSection={
-                    [
-                      RHAP_UI.MAIN_CONTROLS,
-                      RHAP_UI.CURRENT_TIME,
-                      RHAP_UI.PROGRESS_BAR,
-                      RHAP_UI.DURATION
-                    ]
-                  }
-                  customIcons={{
-                    play: test,
-                    pause: test2
-                  }}
-                  showJumpControls={false}
-                  customControlsSection={[RHAP_UI.VOLUME]}
-                  autoPlayAfterSrcChange={false}
-                  src={props.option.urlPath}
-                />
-                {/*<ReactAudioPlayer*/}
-                {/*  src={props.option.urlPath}*/}
-                {/*  // autoPlay*/}
-                {/*  controls*/}
-                {/*/>*/}
-                {/*<ReactPlayer controls height='100px' width='100%' url={props.option.urlPath}/>*/}
+                <QuizPlayer activeQuestionPath={props.option.urlPath || ''}/>
               </Grid>
             </Grid>
           </Grid>

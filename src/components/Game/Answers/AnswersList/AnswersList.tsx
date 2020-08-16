@@ -7,8 +7,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Radio, RadioProps, withStyles } from '@material-ui/core';
 import { Howl } from 'howler';
 import { green } from '@material-ui/core/colors';
-import { Movie } from '../../../models/movie.model';
-import appConfig from '../../../config/app-config.json';
+import { Movie } from '../../../../models/movie.model';
+import appConfig from '../../../../config/app-config.json';
 
 interface AnswerListProps {
   answers: Movie[];
@@ -53,12 +53,6 @@ export default function AnswersList(props: AnswerListProps) {
     setScoreUpdatedState(false);
     setSelectedAnswer(null);
     setAnswers([]);
-    // // todo why??
-    // if (!props.answers?.length) {
-    //   setScoreUpdatedState(false);
-    //   setSelectedAnswer(null);
-    //   setAnswers([]);
-    // }
   }, [props.answers]);
 
   const playSound = (answerId: string) => {

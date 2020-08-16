@@ -17,12 +17,13 @@
   "@types/react-dom": "^16.9.8",
   "firebase": "^7.17.1",
   "howler": "^2.2.0",
+  "node-sass": "^4.14.1",
   "react": "^16.13.1",
   "react-dom": "^16.13.1",
   "react-h5-audio-player": "^3.3.0",
   "react-scripts": "3.4.3",
-  "typescript": "^3.7.5",
-  "rxjs": "^6.6.2"
+  "rxjs": "^6.6.2",
+  "typescript": "^3.7.5"
  },
  "scripts": {
   "start": "react-scripts start",

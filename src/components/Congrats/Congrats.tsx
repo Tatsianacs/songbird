@@ -34,6 +34,9 @@ const useStyles = makeStyles(() =>
       width: '100%',
       flexWrap: 'wrap',
       margin: '16px 0'
+    },
+    hint: {
+      marginTop: '16px'
     }
   }),
 );
@@ -73,7 +76,7 @@ export function Congrats(props: CongratsProps) {
       <DataTable rows={props.resultsData}/>
       {props.score !== MAX_SCORE &&
       <>
-          <Typography variant="h6" color="textSecondary">
+          <Typography variant="h6" color="textSecondary" className={classes.hint}>
               Попробуйте пройти еще раз
           </Typography>
           <Button fullWidth variant="contained" color="primary" onClick={props.onResetClick}>
