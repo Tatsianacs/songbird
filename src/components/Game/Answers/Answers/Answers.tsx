@@ -6,12 +6,15 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import AnswersList from '../AnswersList/AnswersList';
 import Description from '../Description/Description';
 import { Movie } from '../../../../models/movie.model';
+import { Button } from '@material-ui/core';
 
 interface AnswersProps {
   requiredAnswer: Movie | null;
+  hasCorrectAnswer: boolean;
   answers: Movie[] | null;
   onCorrectAnswerChange: (score: number) => void;
   onAnswerClick: (isCorrect: boolean) => void;
+  onNextClick: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     skeleton: {
       width: 200,
-      height: 350
+      height: 300
     },
     description: {
       padding: theme.spacing(2),
@@ -59,6 +62,10 @@ export default function Answers(props: AnswersProps) {
     props.onCorrectAnswerChange(score);
   };
 
+  const emitNextClick = () => {
+    props.onNextClick();
+  };
+
   const changeSelectedAnswer = (id: string) => {
     const shouldStopPlayer = (id === props.requiredAnswer?.id);
     props.onAnswerClick(shouldStopPlayer);
@@ -76,6 +83,9 @@ export default function Answers(props: AnswersProps) {
               <Skeleton variant="rect" className={classes.skeleton}/> :
               <AnswersList answers={props.answers} requiredAnswer={props.requiredAnswer} onCorrectAnswerChange={emitCorrectAnswer}
                            onSelectedAnswer={changeSelectedAnswer}/>}
+            <Button fullWidth variant="contained" color="primary" disabled={!props.hasCorrectAnswer}
+                    onClick={emitNextClick}>Дальше
+            </Button>
           </Paper>
         </Grid>
         <Grid item xs>

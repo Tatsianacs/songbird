@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundImage: 'linear-gradient(to top, #dfe9f3 0%, white 100%)'
     },
     image: {
-      width: 154,
-      height: 230
+      width: 150,
+      height: 'auto'
     },
     grid: {
       justifyContent: 'center'

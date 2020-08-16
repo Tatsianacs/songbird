@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { QuizTab } from '../../models/quiz-tab.model';
 import { Question } from './Question/Question';
-import { Button } from '@material-ui/core';
 import Answers from './Answers/Answers/Answers';
 import { Movie } from '../../models/movie.model';
 import { getRandomElements } from '../../helpers/helper';
@@ -24,10 +23,7 @@ const getQuizOptions = (movies: Movie[]) => {
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      margin: '16px 0'
-    },
-    button: {
-      marginBottom: '16px'
+      margin: '12px 0'
     }
   }),
 );
@@ -96,7 +92,8 @@ export function Game(props: GameProps) {
       return fromPromise(storage.child('Audio').child(props.activeTab.firebaseId).child(`${trailer.firebaseId}.mp3`)
         .getDownloadURL())
         .pipe(
-          tap(url => trailer.urlPath = url)
+          tap(url => trailer.urlPath = url),
+          catchError(() => of(''))
         );
     };
 
@@ -111,13 +108,12 @@ export function Game(props: GameProps) {
     };
   }, [props.activeTab]);
 
-
   const resetGame = () => {
     setStopStatus(false);
     setCorrectAnswerStatus(false);
-    setStopStatus(false);
-    setCorrectAnswerStatus(false);
-  }
+    setActiveQuestion(null);
+    setActiveAnswers([]);
+  };
 
   const handleNextButtonClick = () => {
     if (hasCorrectAnswer) {
@@ -138,10 +134,8 @@ export function Game(props: GameProps) {
   return (
     <div className={classes.root}>
       <Question shouldStop={shouldStop} activeQuestion={activeQuestion} correctAnswerExists={hasCorrectAnswer}/>
-      <Button fullWidth variant="contained" color="primary" disabled={!hasCorrectAnswer} className={classes.button}
-              onClick={handleNextButtonClick}>Дальше
-      </Button>
       <Answers onAnswerClick={handlePlayerStop} requiredAnswer={activeQuestion} answers={activeAnswers}
+               hasCorrectAnswer={hasCorrectAnswer} onNextClick={handleNextButtonClick}
                onCorrectAnswerChange={handleCorrectAnswer}/>
     </div>
   );

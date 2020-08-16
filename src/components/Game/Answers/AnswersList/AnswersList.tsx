@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -34,7 +34,7 @@ const GreenRadio = withStyles({
   checked: {},
 })((props: RadioProps) => <Radio color="default" {...props} />);
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: '100%',
@@ -97,7 +97,7 @@ export default function AnswersList(props: AnswerListProps) {
         const labelId = value.themoviedbTitle;
 
         return (
-          <ListItem key={value.id} role={undefined} dense button onClick={handleClick(value.id)}>
+          <ListItem key={value.id} selected={value.id===selectedAnswer?.id} role={undefined} dense button onClick={handleClick(value.id)}>
             <ListItemIcon>
               {(props.requiredAnswer?.id === value.id) && reviewedAnswerIds.includes(value.id) ?
                 <GreenRadio value={value.id} checked={reviewedAnswerIds.includes(value.id)}/> :

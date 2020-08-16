@@ -12,7 +12,7 @@ const useStyles = makeStyles(() =>
       padding: '16px',
       display: 'flex',
       alignItems: 'flex-start',
-      marginBottom: '16px',
+      marginBottom: '12px',
       flexWrap: 'wrap',
       justifyContent: 'center',
       backgroundImage: 'linear-gradient(to top, #dfe9f3 0%, white 100%)',
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() =>
       boxShadow: '0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)'
     },
     image: {
-      width: '150px',
+      width: '120px',
       height: 'auto',
       marginRight: '16px',
       border: '1px solid #ddd',
