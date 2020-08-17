@@ -78,6 +78,8 @@ export function Game(props: GameProps) {
             trailer.themoviedbOriginalTitle = data.original_title || data.original_name;
             trailer.themoviedbTitle = data.title || data.name;
             trailer.themoviedbImagePath = `https://image.tmdb.org/t/p/w154${data.poster_path}`;
+            trailer.themoviedbVote = data.vote_average;
+            trailer.themoviedbYear = (data.release_date || data.first_air_date)?.slice(0, 4);
           }),
           catchError(err => {
             return of({ error: true, message: err.message });

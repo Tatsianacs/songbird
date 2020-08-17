@@ -9,4 +9,6 @@ export interface Movie {
   themoviedbImagePath?: string;
   themoviedbTitle?: string;
   themoviedbOriginalTitle?: string;
+  themoviedbVote?: number;
+  themoviedbYear?: string;
 }

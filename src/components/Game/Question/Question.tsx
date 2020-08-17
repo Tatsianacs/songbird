@@ -5,6 +5,9 @@ import { QuizPlayer } from '../../QuizPlayer/QuizPlayer';
 import { Skeleton } from '@material-ui/lab';
 import { Movie } from '../../../models/movie.model';
 import stubImage from '../../../images/stub.png';
+import roundStarRate from '@iconify/icons-ic/round-star-rate';
+import Icon from '@iconify/react';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -18,6 +21,10 @@ const useStyles = makeStyles(() =>
       backgroundImage: 'linear-gradient(to top, #dfe9f3 0%, white 100%)',
       borderRadius: '2px',
       boxShadow: '0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)'
+    },
+    title: {
+      display: 'flex',
+      alignItems: 'center'
     },
     image: {
       width: '120px',
@@ -54,7 +61,16 @@ export function Question(props: QuestionProps) {
              className={classes.image}/>
       </div>
       <div className={classes.player}>
-        {props.correctAnswerExists ? <h3>{props.activeQuestion?.themoviedbTitle}</h3> :
+        {props.correctAnswerExists ?
+          <div className={classes.title}>
+            <Typography variant="subtitle1" color="textPrimary">
+              {props.activeQuestion?.themoviedbTitle} ({props.activeQuestion?.themoviedbYear})
+            </Typography>
+            <Typography variant="caption" color="textSecondary">
+              <Icon icon={roundStarRate} color="#FFCC00"/>
+              {props.activeQuestion?.themoviedbVote}
+            </Typography>
+          </div> :
           <h3 className='quiz__name'>Угадай *** по трейлеру </h3>}
         <Divider/>
         {props.activeQuestion && props.activeQuestion.urlPath ?

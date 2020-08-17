@@ -5,4 +5,7 @@ export interface ImdbMovieData {
   name?: string;
   original_name?: string;
   original_title?: string;
+  vote_average?: number;
+  release_date?: string;
+  first_air_date?: string;
 }

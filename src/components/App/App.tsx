@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from '@material-ui/core';
 import HorizontalStepper from '../Stepper/HorizontalStepper';
 import { TABS } from '../../config/tab-config';
@@ -8,13 +8,15 @@ import { Game } from '../Game/Game';
 import { UserGameData } from '../../models/user-game.model';
 import { QuizTab } from '../../models/quiz-tab.model';
 
+const TAB_LABELS = TABS.map(tab => tab.displayName);
+
 function App() {
 
-  const TAB_LABELS = TABS.map(tab => tab.displayName);
   const [activeTab, setActiveTab] = useState<QuizTab | null>(TABS[0]);
   const [isGameEnded, setGameEndedStatus] = useState(false);
   const [score, setScore] = useState(0);
   const [gameData, setGameData] = useState<UserGameData[]>([]);
+  const [gameTime, setGameTime] = useState(0);
 
   const reset = () => {
     setActiveTab(TABS[0]);
@@ -35,8 +37,13 @@ function App() {
     setGameData(requiredData);
   };
 
+  useEffect(() => {
+    setGameTime(window.performance.now());
+  }, []);
+
   const endGame = () => {
     setGameEndedStatus(true);
+    setGameTime(prevState => (window.performance.now() - prevState));
   };
 
   const clickNext = () => {
@@ -58,7 +65,7 @@ function App() {
       <InfoPanel score={score}/>
       <HorizontalStepper activeStepIndex={activeTab?.sequenceNo} stepLabels={TAB_LABELS}/>
       {isGameEnded ?
-        <Congrats resultsData={gameData} score={score} onResetClick={reset}/> :
+        <Congrats resultsData={gameData} score={score} time={gameTime} onResetClick={reset}/> :
         <Game activeTab={activeTab} onScoreChange={changeScore} onNextButtonClick={clickNext}
               onActiveTabChange={changeActiveTab}/>}
     </Container>

@@ -32,8 +32,8 @@ export default function DataTable(props: TableProps) {
       <Table className={classes.table} size="small" aria-label="movie table">
         <TableHead>
           <TableRow>
-            <TableCell>Вопрос</TableCell>
-            <TableCell align="right">Ответ</TableCell>
+            <TableCell>Категория</TableCell>
+            <TableCell align="right">Фильм</TableCell>
             <TableCell align="right">Баллы</TableCell>
           </TableRow>
         </TableHead>
