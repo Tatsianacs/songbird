@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1
     },
     skeleton: {
-      width: 200,
+      width: 220,
       height: 300
     },
     description: {

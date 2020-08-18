@@ -15,8 +15,8 @@ const useStyles = makeStyles({
 });
 
 interface TableRow {
-  question: string;
-  answer: string;
+  main: string;
+  middle: string | number;
   score: number;
 }
 
@@ -39,12 +39,12 @@ export default function DataTable(props: TableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.rows.map((row) => (
-            <TableRow key={row.question}>
+          {props.rows.map((row, index) => (
+            <TableRow key={index}>
               <TableCell component="th" scope="row">
-                {row.question}
+                {row.main}
               </TableCell>
-              <TableCell>{row.answer}</TableCell>
+              <TableCell>{row.middle}</TableCell>
               <TableCell>{row.score}</TableCell>
             </TableRow>
           ))}

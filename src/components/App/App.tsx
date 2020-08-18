@@ -16,7 +16,7 @@ function App() {
   const [isGameEnded, setGameEndedStatus] = useState(false);
   const [score, setScore] = useState(0);
   const [gameData, setGameData] = useState<UserGameData[]>([]);
-  const [gameTime, setGameTime] = useState(0);
+  const [gameStartTime, setGameStartTime] = useState(0);
   const [sessionData, setSessionData] = useState<any[]>(Object.keys(localStorage)
     .filter(el => el.includes('movieQuizData'))
     .map(k => JSON.parse(localStorage.getItem(k) || '')) || []);
@@ -26,14 +26,15 @@ function App() {
     setGameEndedStatus(false);
     setScore(0);
     setGameData([]);
+    setGameStartTime(window.performance.now());
   };
 
   const changeScore = (score: number, answer: string) => {
     setScore(prevState => score + prevState);
     const requiredData = [...gameData];
     const newData = {
-      question: activeTab?.displayName || 'Unknown',
-      answer: answer,
+      main: activeTab?.displayName || 'Unknown',
+      middle: answer,
       score: score
     };
     requiredData.push(newData);
@@ -41,22 +42,23 @@ function App() {
   };
 
   useEffect(() => {
-    setGameTime(window.performance.now());
+    setGameStartTime(window.performance.now());
   }, []);
 
 
   const endGame = () => {
-    const userTime = window.performance.now();
-    const roundedTimeInSeconds =  Math.round(userTime / 1000);
-    const date = new Date().toLocaleString();
-    // todo set in useEffect
-    setGameTime(prevState => ( userTime - prevState));
-    const currentSessionData = { question: date, answer: roundedTimeInSeconds.toString(), score: score };
-    debugger
-    const dataToBeUpdated = [...sessionData, currentSessionData];
+    const newSessionData = getSessionData();
+    localStorage.setItem(`movieQuizData${newSessionData.main}`, JSON.stringify(newSessionData));
+    const dataToBeUpdated = [...sessionData, newSessionData];
     setSessionData(dataToBeUpdated);
-    localStorage.setItem(`movieQuizData${date}`, JSON.stringify(currentSessionData));
     setGameEndedStatus(true);
+  };
+
+  const getSessionData = () => {
+    const userGameEndTime = window.performance.now();
+    const roundedTimeInSeconds = Math.round((userGameEndTime - gameStartTime) / 1000);
+    const date = new Date().toLocaleString();
+    return { main: date, middle: roundedTimeInSeconds.toString(), score: score };
   };
 
   const clickNext = () => {
@@ -78,7 +80,7 @@ function App() {
       <InfoPanel score={score}/>
       <HorizontalStepper activeStepIndex={activeTab?.sequenceNo} stepLabels={TAB_LABELS}/>
       {isGameEnded ?
-        <Congrats resultsData={gameData} sessions={sessionData} score={score} time={gameTime} onResetClick={reset}/> :
+        <Congrats resultsData={gameData} sessions={sessionData} score={score} onResetClick={reset}/> :
         <Game activeTab={activeTab} onScoreChange={changeScore} onNextButtonClick={clickNext}
               onActiveTabChange={changeActiveTab}/>}
     </Container>

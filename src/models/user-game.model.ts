@@ -1,5 +1,5 @@
 export interface UserGameData {
-  question: string;
-  answer: string;
+  main: string;
+  middle: string;
   score: number;
 }

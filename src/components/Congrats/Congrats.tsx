@@ -9,7 +9,6 @@ import { UserGameData } from '../../models/user-game.model';
 
 interface CongratsProps {
   score: number;
-  time: number;
   resultsData: UserGameData[];
   sessions: any[];
   onResetClick: () => void;
@@ -68,7 +67,7 @@ export function Congrats(props: CongratsProps) {
 
   return (
     <Paper className={classes.root}>
-      <Typography variant="h5" component="h2" color="textSecondary">Вы набрали {props.score} баллов из {MAX_SCORE} возможных.
+      <Typography variant="h5" component="h2" color="textSecondary">Вы набрали {props.score} баллов из {MAX_SCORE} возможных
       </Typography>
       {props.score === MAX_SCORE && <Typography variant="h5" component="h2" color="textPrimary">Поздравляем! Игра окончена.
       </Typography>}
