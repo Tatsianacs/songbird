@@ -7,8 +7,6 @@ import DataTable from '../DataTable/DataTable';
 import appConfig from '../../config/app-config.json';
 import { UserGameData } from '../../models/user-game.model';
 
-;
-
 interface CongratsProps {
   score: number;
   time: number;
@@ -40,7 +38,11 @@ const useStyles = makeStyles(() =>
       margin: '16px 0'
     },
     hint: {
-      marginTop: '16px'
+      margin: '16px 0'
+    },
+    table: {
+      margin: '16px 0',
+      width: '100%'
     }
   }),
 );
@@ -66,21 +68,25 @@ export function Congrats(props: CongratsProps) {
 
   return (
     <Paper className={classes.root}>
-
-      <Typography variant="h5" color="textSecondary">Вы набрали {props.score} баллов из {MAX_SCORE} возможных.
+      <Typography variant="h5" component="h2" color="textSecondary">Вы набрали {props.score} баллов из {MAX_SCORE} возможных.
       </Typography>
-      {props.score === MAX_SCORE && <Typography variant="h4" color="textPrimary">Поздравляем! Игра окончена.
+      {props.score === MAX_SCORE && <Typography variant="h5" component="h2" color="textPrimary">Поздравляем! Игра окончена.
       </Typography>}
 
       <div className={classes.visuals}>
         {gifPath && <img src={gifPath} alt="gif"/>}
         {props.score === MAX_SCORE && <img src={oscar} alt="oscar" className={classes.image}/>}
       </div>
-      <DataTable rows={props.resultsData} header={['Категрия', 'Ответ', 'Балл']}/>
-      <DataTable rows={props.sessions} header={['Дата', 'Время', 'Балл']}/>
+      <div className={classes.table}>
+        <DataTable rows={props.resultsData} header={['Категория фильма', 'Правильный ответ', 'Ваш балл']}/>
+      </div>
+      <Typography variant="subtitle1" component="span" color="textSecondary" className={classes.hint}>
+        Ваши результаты по всем играм:
+      </Typography>
+      <DataTable rows={props.sessions} header={['Дата', 'Время прохождения (сек)', 'Ваш балл']}/>
       {props.score !== MAX_SCORE &&
       <>
-          <Typography variant="h6" color="textSecondary" className={classes.hint}>
+          <Typography variant="subtitle1" component="span" color="textSecondary" className={classes.hint}>
               Попробуйте пройти еще раз
           </Typography>
           <Button fullWidth variant="contained" color="primary" onClick={props.onResetClick}>
