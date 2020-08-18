@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import HorizontalStepper from '../Stepper/HorizontalStepper';
 import { TABS } from '../../config/tab-config';
 import { InfoPanel } from '../InfoPanel/IntroPanel';
