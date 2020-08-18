@@ -75,7 +75,7 @@ export default function Description(props: DescriptionProps) {
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="subtitle2" component="h3" gutterBottom>
                   {props.option.themoviedbTitle}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
@@ -83,7 +83,7 @@ export default function Description(props: DescriptionProps) {
                 </Typography>
                 <Divider/>
                 <Typography title={props.option.themoviedbOverview} gutterBottom variant="subtitle1"
-                            className={classes.description}>
+                            component="p" className={classes.description}>
                   {props.option.themoviedbOverview}
                 </Typography>
                 <QuizPlayer activeQuestionPath={props.option.urlPath || ''}/>

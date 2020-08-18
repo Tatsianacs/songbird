@@ -7,10 +7,13 @@ import DataTable from '../DataTable/DataTable';
 import appConfig from '../../config/app-config.json';
 import { UserGameData } from '../../models/user-game.model';
 
+;
+
 interface CongratsProps {
   score: number;
   time: number;
   resultsData: UserGameData[];
+  sessions: any[];
   onResetClick: () => void;
 }
 
@@ -65,7 +68,6 @@ export function Congrats(props: CongratsProps) {
     <Paper className={classes.root}>
 
       <Typography variant="h5" color="textSecondary">Вы набрали {props.score} баллов из {MAX_SCORE} возможных.
-        У вас заняло {Math.round(props.time/1000)} секунд
       </Typography>
       {props.score === MAX_SCORE && <Typography variant="h4" color="textPrimary">Поздравляем! Игра окончена.
       </Typography>}
@@ -74,8 +76,8 @@ export function Congrats(props: CongratsProps) {
         {gifPath && <img src={gifPath} alt="gif"/>}
         {props.score === MAX_SCORE && <img src={oscar} alt="oscar" className={classes.image}/>}
       </div>
-
-      <DataTable rows={props.resultsData}/>
+      <DataTable rows={props.resultsData} header={['Категрия', 'Ответ', 'Балл']}/>
+      <DataTable rows={props.sessions} header={['Дата', 'Время', 'Балл']}/>
       {props.score !== MAX_SCORE &&
       <>
           <Typography variant="h6" color="textSecondary" className={classes.hint}>

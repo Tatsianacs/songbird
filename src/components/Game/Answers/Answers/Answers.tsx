@@ -81,7 +81,8 @@ export default function Answers(props: AnswersProps) {
           <Paper className={classes.list}>
             {!props.answers?.length ?
               <Skeleton variant="rect" className={classes.skeleton}/> :
-              <AnswersList answers={props.answers} requiredAnswer={props.requiredAnswer} onCorrectAnswerChange={emitCorrectAnswer}
+              <AnswersList answers={props.answers} requiredAnswer={props.requiredAnswer}
+                           onCorrectAnswerChange={emitCorrectAnswer}
                            onSelectedAnswer={changeSelectedAnswer}/>}
             <Button fullWidth variant="contained" color="primary" disabled={!props.hasCorrectAnswer}
                     onClick={emitNextClick}>Дальше

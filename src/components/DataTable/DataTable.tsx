@@ -21,7 +21,8 @@ interface TableRow {
 }
 
 interface TableProps {
-  rows: TableRow[]
+  rows: TableRow[],
+  header: string[]
 }
 
 export default function DataTable(props: TableProps) {
@@ -32,9 +33,9 @@ export default function DataTable(props: TableProps) {
       <Table className={classes.table} size="small" aria-label="movie table">
         <TableHead>
           <TableRow>
-            <TableCell>Категория</TableCell>
-            <TableCell align="right">Фильм</TableCell>
-            <TableCell align="right">Баллы</TableCell>
+            {props.header.map((cell, index) => (
+              <TableCell key={index}>{cell}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -43,8 +44,8 @@ export default function DataTable(props: TableProps) {
               <TableCell component="th" scope="row">
                 {row.question}
               </TableCell>
-              <TableCell align="right">{row.answer}</TableCell>
-              <TableCell align="right">{row.score}</TableCell>
+              <TableCell>{row.answer}</TableCell>
+              <TableCell>{row.score}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -29,7 +29,7 @@ export function Score(props: ScoreProps) {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h3" color="textSecondary" className={classes.text}>{props.score}</Typography>
+      <Typography variant="h4" component="span" color="textSecondary" className={classes.text}>{props.score}</Typography>
       <img src={coin} alt="score" className={classes.score}/>
     </div>
   );

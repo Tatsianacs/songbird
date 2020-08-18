@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import HorizontalStepper from '../Stepper/HorizontalStepper';
 import { TABS } from '../../config/tab-config';
 import { InfoPanel } from '../InfoPanel/IntroPanel';
@@ -17,6 +17,9 @@ function App() {
   const [score, setScore] = useState(0);
   const [gameData, setGameData] = useState<UserGameData[]>([]);
   const [gameTime, setGameTime] = useState(0);
+  const [sessionData, setSessionData] = useState<any[]>(Object.keys(localStorage)
+    .filter(el => el.includes('movieQuizData'))
+    .map(k => JSON.parse(localStorage.getItem(k) || '')) || []);
 
   const reset = () => {
     setActiveTab(TABS[0]);
@@ -41,9 +44,19 @@ function App() {
     setGameTime(window.performance.now());
   }, []);
 
+
   const endGame = () => {
+    const userTime = window.performance.now();
+    const roundedTimeInSeconds =  Math.round(userTime / 1000);
+    const date = new Date().toLocaleString();
+    // todo set in useEffect
+    setGameTime(prevState => ( userTime - prevState));
+    const currentSessionData = { question: date, answer: roundedTimeInSeconds.toString(), score: score };
+    debugger
+    const dataToBeUpdated = [...sessionData, currentSessionData];
+    setSessionData(dataToBeUpdated);
+    localStorage.setItem(`movieQuizData${date}`, JSON.stringify(currentSessionData));
     setGameEndedStatus(true);
-    setGameTime(prevState => (window.performance.now() - prevState));
   };
 
   const clickNext = () => {
@@ -65,7 +78,7 @@ function App() {
       <InfoPanel score={score}/>
       <HorizontalStepper activeStepIndex={activeTab?.sequenceNo} stepLabels={TAB_LABELS}/>
       {isGameEnded ?
-        <Congrats resultsData={gameData} score={score} time={gameTime} onResetClick={reset}/> :
+        <Congrats resultsData={gameData} sessions={sessionData} score={score} time={gameTime} onResetClick={reset}/> :
         <Game activeTab={activeTab} onScoreChange={changeScore} onNextButtonClick={clickNext}
               onActiveTabChange={changeActiveTab}/>}
     </Container>

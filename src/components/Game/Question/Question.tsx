@@ -39,6 +39,9 @@ const useStyles = makeStyles(() =>
     },
     skeleton: {
       marginTop: '28px'
+    },
+    text: {
+      marginRight: '4px'
     }
   }),
 );
@@ -63,7 +66,7 @@ export function Question(props: QuestionProps) {
       <div className={classes.player}>
         {props.correctAnswerExists ?
           <div className={classes.title}>
-            <Typography variant="subtitle1" color="textPrimary">
+            <Typography variant="h6" component="h2" color="textPrimary" className={classes.text}>
               {props.activeQuestion?.themoviedbTitle} ({props.activeQuestion?.themoviedbYear})
             </Typography>
             <Typography variant="caption" color="textSecondary">
@@ -71,7 +74,9 @@ export function Question(props: QuestionProps) {
               {props.activeQuestion?.themoviedbVote}
             </Typography>
           </div> :
-          <h3 className='quiz__name'>Угадай *** по трейлеру </h3>}
+          <Typography variant="h6" component="h2" color="textPrimary">
+            Угадай *** по трейлеру
+          </Typography>}
         <Divider/>
         {props.activeQuestion && props.activeQuestion.urlPath ?
           <QuizPlayer shouldStop={props.shouldStop} activeQuestionPath={props.activeQuestion.urlPath}/> :
