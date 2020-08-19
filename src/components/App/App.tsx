@@ -5,21 +5,24 @@ import { TABS } from '../../config/tab-config';
 import { InfoPanel } from '../InfoPanel/IntroPanel';
 import { Congrats } from '../Congrats/Congrats';
 import { Game } from '../Game/Game';
-import { UserGameData } from '../../models/user-game.model';
 import { QuizTab } from '../../models/quiz-tab.model';
+import { TableData } from '../../models/table-data.model';
 
 const TAB_LABELS = TABS.map(tab => tab.displayName);
 
 function App() {
-
   const [activeTab, setActiveTab] = useState<QuizTab | null>(TABS[0]);
   const [isGameEnded, setGameEndedStatus] = useState(false);
   const [score, setScore] = useState(0);
-  const [gameData, setGameData] = useState<UserGameData[]>([]);
+  const [gameData, setGameData] = useState<TableData[]>([]);
   const [gameStartTime, setGameStartTime] = useState(0);
   const [sessionData, setSessionData] = useState<any[]>(Object.keys(localStorage)
     .filter(el => el.includes('movieQuizData'))
     .map(k => JSON.parse(localStorage.getItem(k) || '')) || []);
+
+  useEffect(() => {
+    setGameStartTime(window.performance.now());
+  }, []);
 
   const reset = () => {
     setActiveTab(TABS[0]);
@@ -31,20 +34,14 @@ function App() {
 
   const changeScore = (score: number, answer: string) => {
     setScore(prevState => score + prevState);
-    const requiredData = [...gameData];
     const newData = {
       main: activeTab?.displayName || 'Unknown',
       middle: answer,
       score: score
     };
-    requiredData.push(newData);
+    const requiredData = [...gameData, newData];
     setGameData(requiredData);
   };
-
-  useEffect(() => {
-    setGameStartTime(window.performance.now());
-  }, []);
-
 
   const endGame = () => {
     const newSessionData = getSessionData();
