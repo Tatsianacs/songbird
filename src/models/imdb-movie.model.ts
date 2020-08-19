@@ -1,3 +1,7 @@
+/*
+    Properties from IMDB API
+    https://developer.imdb.com/
+ */
 export interface ImdbMovieData {
   overview: string;
   poster_path: string;

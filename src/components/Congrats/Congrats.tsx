@@ -5,11 +5,11 @@ import Paper from '@material-ui/core/Paper';
 import oscar from '../../images/win.png';
 import DataTable from '../DataTable/DataTable';
 import appConfig from '../../config/app-config.json';
-import { UserGameData } from '../../models/user-game.model';
+import { TableData } from '../../models/table-data.model';
 
 interface CongratsProps {
   score: number;
-  resultsData: UserGameData[];
+  resultsData: TableData[];
   sessions: any[];
   onResetClick: () => void;
 }
@@ -67,9 +67,11 @@ export function Congrats(props: CongratsProps) {
 
   return (
     <Paper className={classes.root}>
-      <Typography variant="h5" component="h2" color="textSecondary">Вы набрали {props.score} баллов из {MAX_SCORE} возможных
+      <Typography variant="h5" component="h2" color="textSecondary">Вы набрали {props.score} баллов
+        из {MAX_SCORE} возможных
       </Typography>
-      {props.score === MAX_SCORE && <Typography variant="h5" component="h2" color="textPrimary">Поздравляем! Игра окончена.
+      {props.score === MAX_SCORE &&
+      <Typography variant="h5" component="h2" color="textPrimary">Поздравляем! Игра окончена.
       </Typography>}
 
       <div className={classes.visuals}>
