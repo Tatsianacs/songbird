@@ -75,7 +75,7 @@ export function Question(props: QuestionProps) {
             </Typography>
           </div> :
           <Typography variant="h6" component="h2" color="textPrimary">
-            Угадай *** по трейлеру
+            Угадай ***** по трейлеру
           </Typography>}
         <Divider/>
         {props.activeQuestion && props.activeQuestion.urlPath ?
