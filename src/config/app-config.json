@@ -4,5 +4,5 @@
  "numberOfAnswers": 6,
  "maxScorePerQuestion": 5,
  "giphyApiPath": "https://api.giphy.com/v1/gifs/random",
- "imdbLanguage": "ru-RU"
+ "theMovieDbLang": "ru-RU"
 }

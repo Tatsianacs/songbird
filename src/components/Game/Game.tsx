@@ -61,7 +61,7 @@ export function Game(props: GameProps) {
 
     const fetchMovieImdbInfo = (trailer: Movie) => {
       const apiPath = trailer.isTv ? 'tv' : 'movie';
-      return fromFetch(`https://api.themoviedb.org/3/${apiPath}/${trailer.themoviedbId}?api_key=${appConfig.theMovieDbApiKey}&language=${appConfig.imdbLanguage}`)
+      return fromFetch(`https://api.themoviedb.org/3/${apiPath}/${trailer.themoviedbId}?api_key=${appConfig.theMovieDbApiKey}&language=${appConfig.theMovieDbLang}`)
         .pipe(
           switchMap(response => {
             if (response.ok) {
