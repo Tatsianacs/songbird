@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       height: '100%'
+    },
+    button: {
+      marginTop: '20px'
     }
   })
 );
@@ -84,7 +87,7 @@ export default function Answers(props: AnswersProps) {
               <AnswersList answers={props.answers} requiredAnswer={props.requiredAnswer}
                            onCorrectAnswerChange={emitCorrectAnswer}
                            onSelectedAnswer={changeSelectedAnswer}/>}
-            <Button fullWidth variant="contained" color="primary" disabled={!props.hasCorrectAnswer}
+            <Button fullWidth variant="contained" color="primary" disabled={!props.hasCorrectAnswer} className={classes.button}
                     onClick={emitNextClick}>Дальше
             </Button>
           </Paper>
