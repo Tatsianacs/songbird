@@ -67,8 +67,8 @@ export function Congrats(props: CongratsProps) {
 
   return (
     <Paper className={classes.root}>
-      <Typography variant="h5" component="h2" color="textSecondary">Вы набрали {props.score} баллов
-        из {MAX_SCORE} возможных
+      <Typography variant="h5" component="h2" color="textSecondary">
+        Вы набрали следующее количество баллов из {MAX_SCORE} возможных :{props.score}
       </Typography>
       {props.score === MAX_SCORE &&
       <Typography variant="h5" component="h2" color="textPrimary">Поздравляем! Игра окончена.

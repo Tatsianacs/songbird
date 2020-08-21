@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -7,8 +7,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 const MAX_STEP: number = 6;
 
 interface StepperProps {
-  activeStepIndex?: number;
   stepLabels: string[];
+  activeStepIndex?: number;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,7 +30,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function HorizontalStepper(props: StepperProps) {
   const classes = useStyles();
-  const activeIndex = typeof props.activeStepIndex === 'undefined' ? MAX_STEP : props.activeStepIndex;
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const activeTabIndex = typeof props.activeStepIndex === 'undefined' ? MAX_STEP : props.activeStepIndex;
+    setActiveIndex(activeTabIndex);
+  }, [props.activeStepIndex]);
 
   return (
     <div className={classes.root}>
