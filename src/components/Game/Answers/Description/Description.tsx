@@ -26,8 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       padding: theme.spacing(2),
-      margin: 'auto',
-      backgroundImage: 'linear-gradient(to top, #dfe9f3 0%, white 100%)'
+      margin: 'auto'
     },
     image: {
       width: 150,

@@ -18,8 +18,8 @@ const useStyles = makeStyles(() =>
       marginBottom: '12px',
       flexWrap: 'wrap',
       justifyContent: 'center',
-      backgroundImage: 'linear-gradient(to top, #dfe9f3 0%, white 100%)',
       borderRadius: '2px',
+      backgroundColor: '#fff',
       boxShadow: '0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)'
     },
     title: {

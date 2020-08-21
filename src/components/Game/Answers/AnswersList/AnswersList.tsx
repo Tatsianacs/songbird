@@ -37,8 +37,7 @@ const GreenRadio = withStyles({
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      width: '100%',
-      backgroundImage: 'linear-gradient(to top, white 0%, #dfe9f3 100%)'
+      width: '100%'
     },
   }),
 );
