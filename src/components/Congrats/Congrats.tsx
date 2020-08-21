@@ -10,7 +10,7 @@ import { TableData } from '../../models/table-data.model';
 interface CongratsProps {
   score: number;
   resultsData: TableData[];
-  sessions: any[];
+  sessions: TableData[];
   onResetClick: () => void;
 }
 
@@ -68,7 +68,7 @@ export function Congrats(props: CongratsProps) {
   return (
     <Paper className={classes.root}>
       <Typography variant="h5" component="h2" color="textSecondary">
-        Вы набрали следующее количество баллов из {MAX_SCORE} возможных :{props.score}
+        Вы набрали следующее количество баллов из {MAX_SCORE} возможных: {props.score}
       </Typography>
       {props.score === MAX_SCORE &&
       <Typography variant="h5" component="h2" color="textPrimary">Поздравляем! Игра окончена.

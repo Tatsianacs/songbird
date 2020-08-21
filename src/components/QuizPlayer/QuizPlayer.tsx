@@ -31,17 +31,15 @@ export function QuizPlayer(props: QuizPlayerProps) {
 
   useEffect(() => {
     if (props.shouldStop) {
-      // @ts-ignore
-      player.current.audio.current.pause();
+      (player?.current as any).audio.current.pause();
     }
-  })
+  }, [props.shouldStop]);
 
   return (
     <div>
       <AudioPlayer
         ref={player}
         className={classes.audioPlayer}
-
         customProgressBarSection={
           [
             RHAP_UI.MAIN_CONTROLS,

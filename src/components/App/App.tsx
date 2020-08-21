@@ -16,7 +16,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [gameData, setGameData] = useState<TableData[]>([]);
   const [gameStartTime, setGameStartTime] = useState(0);
-  const [sessionData, setSessionData] = useState<any[]>(Object.keys(localStorage)
+  const [sessionData, setSessionData] = useState<TableData[]>(Object.keys(localStorage)
     .filter(el => el.includes('movieQuizData'))
     .map(k => JSON.parse(localStorage.getItem(k) || '')) || []);
 

@@ -67,7 +67,7 @@ export default function Description(props: DescriptionProps) {
             <ButtonBase className={classes.image}>
               <img
                 className={classes.img}
-                alt="complex"
+                alt="poster"
                 src={props.option.themoviedbImagePath}
               />
             </ButtonBase>

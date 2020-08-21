@@ -14,12 +14,10 @@ import { fromPromise } from 'rxjs/internal-compatibility';
 import firebase from '../../config/firebase';
 
 const storage = firebase.storage().ref();
-let fetchMovieSubscription: Subscription;
-
 const getQuizOptions = (movies: Movie[]) => {
   return getRandomElements(movies, 6);
 };
-
+let fetchMovieSubscription: Subscription;
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -36,7 +34,6 @@ interface GameProps {
 }
 
 export function Game(props: GameProps) {
-
   const classes = useStyles();
 
   const [shouldStop, setStopStatus] = useState(false);
@@ -46,7 +43,7 @@ export function Game(props: GameProps) {
 
   useEffect(() => {
     const fetchMovies = (trailers: Movie[]) => {
-      fetchMovieSubscription = forkJoin(...getMovies(trailers))
+      fetchMovieSubscription = forkJoin(...getRequiredMovies(trailers))
         .subscribe(() => {
           setActiveAnswers(trailers);
           const activeQuestion = getRandomElements(trailers, 1)[0];
@@ -54,7 +51,7 @@ export function Game(props: GameProps) {
         });
     };
 
-    const getMovies = (trailers: Movie[]) => {
+    const getRequiredMovies = (trailers: Movie[]) => {
       return trailers.map(trailer => fetchMovieData(trailer));
     };
 
@@ -64,7 +61,7 @@ export function Game(props: GameProps) {
 
     const fetchMovieImdbInfo = (trailer: Movie) => {
       const apiPath = trailer.isTv ? 'tv' : 'movie';
-      return fromFetch(`https://api.themoviedb.org/3/${apiPath}/${trailer.themoviedbId}?api_key=${appConfig.theMovieDbApiKey}&language=ru-RU`)
+      return fromFetch(`https://api.themoviedb.org/3/${apiPath}/${trailer.themoviedbId}?api_key=${appConfig.theMovieDbApiKey}&language=${appConfig.imdbLanguage}`)
         .pipe(
           switchMap(response => {
             if (response.ok) {
