@@ -24,7 +24,8 @@ const useStyles = makeStyles(() =>
     },
     title: {
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
+      flexWrap: 'wrap'
     },
     image: {
       width: '120px',
