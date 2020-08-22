@@ -1,0 +1,23 @@
+/*
+    config is required to style auto player
+ */
+$rhap_theme-color: #3f51b5;
+$rhap_background-color: transparent;
+$rhap_bar-color: #8b9dc3;
+$rhap_font-family: Roboto;
+@import "~react-h5-audio-player/src/styles";
+
+.rhap {
+
+  &_container {
+    box-shadow: none;
+  }
+
+  &_volume-container {
+    margin-left: 8px;
+  }
+
+  &_time {
+    font-size: 12px;
+  }
+}
