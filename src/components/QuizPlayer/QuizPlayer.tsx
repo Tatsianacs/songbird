@@ -4,6 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Icon } from '@iconify/react';
 import playCircleOutlined from '@iconify/icons-ant-design/play-circle-outlined';
 import pauseCircleOutlined from '@iconify/icons-ant-design/pause-circle-outlined';
+import './QuizPlayer.scss';
 
 interface QuizPlayerProps {
   activeQuestionPath: string;

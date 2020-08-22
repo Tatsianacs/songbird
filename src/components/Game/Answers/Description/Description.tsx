@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Divider } from '@material-ui/core';
-import './Description.scss';
 import { Movie } from '../../../../models/movie.model';
 import { QuizPlayer } from '../../../QuizPlayer/QuizPlayer';
 
